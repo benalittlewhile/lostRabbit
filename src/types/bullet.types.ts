@@ -1,4 +1,5 @@
-export interface BulletProps  {
-  icon: string,
-  text: string
+export interface BulletProps {
+  id: number;
+  icon: string;
+  text: string;
 }

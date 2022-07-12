@@ -3,49 +3,78 @@ import Send from "./send";
 import "./App.css";
 import Bullet from "./components/Bullet";
 import React from "react";
+import { BulletProps } from "./types/bullet.types";
 
 function App() {
-  const [bullets, setBullets] = useState([
+  const [bullets, setBullets] = useState<BulletProps[]>([
     {
+      id: 1,
       icon: "🚀",
       text: "Mooooooooooooooon",
     },
     {
+      id: 2,
       icon: "💻",
       text: "lorem",
     },
   ]);
 
-  // several parts of this are going to be hacky for today, and that's alright
+  /*
+  old values:
+  311 and 17.388 = predicted 17, actual 28 | 311 / 28 = 11.107
+  580 and 23, predicted 23.9 actual 41 | 580 / 41 = 14.146
+  1090 and 43.2, predicted 25.239 actual 42 = 25.95
 
+  new values:
+  width: 227, font size 11.2, predicted 20.27, actual 33
+  width: 282.766, font size: 13.65, predicted: 20.715, actual 34
+  width: 573.5, font size 26.88, predicted 21, actual 35
+  width: 845.76, font size 39.27, predicted 21 actual 36
+  */
   const [newInputVal, setNewInputval] = useState("");
   const [inputFontSize, setInputFontSize] = useState(0);
-  const [inputWidth, setInputWidth] = useState(0)
+  const [inputWidth, setInputWidth] = useState(0);
+  const [predictedChars, setPredictedChars] = useState(0);
 
-  const formInputRef = useRef(null);
+  const formInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    // this needs to be reworked, only works on initial render for the moment
-    const formInput = formInputRef.current;
-    const formInputStyle = window.getComputedStyle(formInput);
-    const rawInputSize = formInputStyle.fontSize;
-    const rawInputWidth = formInputStyle.width;
-    setInputFontSize(Number(rawInputSize.slice(0,-2)));
-    setInputWidth(Number(rawInputWidth.slice(0,-2)));
+    window.addEventListener("resize", handleResize);
 
+    handleResize();
 
-  }, [])
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   // const formInput = document.getElementById("newBulletInput");
-
   const [inputRows, setInputRows] = useState(1);
 
   const onNewBulletSubmit = () => {
-    if(newInputVal) {
+    if (newInputVal) {
       const newBullet = {
+        id: Math.floor(Math.random() * 4096),
         icon: "🍪",
         text: newInputVal,
       };
       setBullets([...bullets, newBullet]);
       setNewInputval("");
+    }
+  };
+
+  const handleResize = () => {
+    const formInput = formInputRef.current;
+    if (formInput) {
+      const formInputStyle = window.getComputedStyle(formInput);
+      const rawInputSize = formInputStyle.fontSize;
+      const rawInputWidth = formInputStyle.width;
+      const calcFontSize = Number(rawInputSize.slice(0, -2));
+      const calcInputWidth = Number(rawInputWidth.slice(0, -2)) - 16;
+      setInputFontSize(calcFontSize);
+      setInputWidth(calcInputWidth);
+
+      const predictedChars = Math.round(
+        0.50187 * calcInputWidth - 11.02113 * calcFontSize + 43.47352
+      );
+
+      setPredictedChars(predictedChars);
     }
   };
 
@@ -59,23 +88,30 @@ function App() {
     <div className="App h-screen w-full bg-slate-500">
       <div className="flex h-full w-full flex-col items-center gap-y-2 overflow-auto overflow-y-scroll p-3">
         {bullets.map((bullet) => {
-          return <Bullet icon={bullet.icon} text={bullet.text} />;
+          return (
+            <Bullet
+              id={bullet.id}
+              key={bullet.id}
+              icon={bullet.icon}
+              text={bullet.text}
+            />
+          );
         })}
         {bullets.length > window.innerHeight / 75 ? (
           <div className="min-h-[10vh] w-full">&nbsp;</div>
         ) : (
           <></>
         )}
-        <h1>{inputFontSize}</h1>
-        <h1>{inputWidth}</h1>
-        <h1>{inputWidth/inputFontSize}</h1>
+        <h1>{window.innerWidth}</h1>
+        <h1>input font size: {inputFontSize}</h1>
+        <h1>input width: {inputWidth}</h1>
+        <h1>predicted characters {predictedChars}</h1>
+
         <div className="fixed bottom-8 z-10 grid w-full justify-items-center">
-          <div className="flex h-fit w-[95%] flex-row justify-start rounded-2xl bg-slate-800 ">
-            <div className="dropdown-top dropdown h-fit w-fit">
-              <label
-                tabIndex={0}
-                className="btn h-auto min-h-[10vw] w-[10vw] rounded-r-none text-[5vw] sm:text-[4.5vw] "
-              >
+          {/* <div className="flex h-fit w-[95%] flex-row justify-start rounded-2xl bg-slate-800 xl:max-w-[50%] "> */}
+          <div className="grid h-fit w-[95%] grid-cols-[1fr,12fr,1fr] justify-start rounded-2xl bg-slate-800 xl:max-w-[50%]">
+            <div className="dropdown-top dropdown col-span-1 h-fit w-fit">
+              <label tabIndex={0} className="btn rounded-r-none p-1 text-3xl ">
                 🚀
               </label>
               <div
@@ -90,25 +126,29 @@ function App() {
                 </div>
               </div>
             </div>
-            <input
-              type="text"
-              placeholder="Bullet"
-              className="min-h-[10vw] h-auto  w-full max-w-full flex-grow bg-slate-800 px-2 text-[4.2vw] text-white focus:outline-none sm:text-[3vw] text-left flex  items-center"
-              id="newBulletInput"
-              ref={formInputRef}
-              value={newInputVal}
-              onChange={(e) => {
-                setNewInputval(e.target.value);
-              }}
-              onSubmit={onNewBulletSubmit}
-              onKeyDown={(e) => handleKeyDown(e.key)}
-            ></input>
+            <div className="col-span-1 flex w-full items-center">
+              <input
+                type="text"
+                placeholder="Bullet"
+                // rows={Math.max(newInputVal.length / predictedChars, 1)}
+                className="flex h-fit min-h-[1vh] w-full max-w-full flex-grow items-center bg-slate-800 px-2 text-left text-xl text-white focus:outline-none"
+                // sm:text-[3vw]
+                id="newBulletInput"
+                ref={formInputRef}
+                value={newInputVal}
+                onChange={(e) => {
+                  setNewInputval(e.target.value);
+                }}
+                onSubmit={onNewBulletSubmit}
+                onKeyDown={(e) => handleKeyDown(e.key)}
+              ></input>
+            </div>
             <button
-              className="btn textarea h-[10vw] min-h-fit
-              w-[10vw]  border-none bg-slate-800 p-0 px-1 outline-none focus:bg-slate-800"
+              className="btn textarea col-span-1
+              min-h-fit w-auto  border-none bg-slate-800 outline-none focus:bg-slate-800"
               onClick={onNewBulletSubmit}
             >
-              <Send className="aspect-square h-full w-full fill-slate-500 px-1 xsm:w-8" />
+              <Send className="aspect-square h-full w-auto fill-slate-500 px-1 " />
             </button>
           </div>
         </div>
