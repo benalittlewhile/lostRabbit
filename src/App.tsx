@@ -102,16 +102,18 @@ function App() {
         ) : (
           <></>
         )}
-        <h1>{window.innerWidth}</h1>
+        {/* <h1>{window.innerWidth}</h1>
         <h1>input font size: {inputFontSize}</h1>
         <h1>input width: {inputWidth}</h1>
-        <h1>predicted characters {predictedChars}</h1>
+        <h1>predicted characters {predictedChars}</h1> */}
 
-        <div className="fixed bottom-8 z-10 grid w-full justify-items-center">
-          {/* <div className="flex h-fit w-[95%] flex-row justify-start rounded-2xl bg-slate-800 xl:max-w-[50%] "> */}
-          <div className="grid h-fit w-[95%] grid-cols-[1fr,12fr,1fr] justify-start rounded-2xl bg-slate-800 xl:max-w-[50%]">
-            <div className="dropdown-top dropdown col-span-1 h-fit w-fit">
-              <label tabIndex={0} className="btn rounded-r-none p-1 text-3xl ">
+        <div className="fixed bottom-4 z-10 grid w-full justify-items-center">
+          <div className="grid h-fit w-[95%] grid-cols-[2rem,12fr,2rem] justify-start rounded-2xl bg-slate-800 xl:max-w-[50%]">
+            <div className="dropdown-top dropdown col-span-1 h-full w-full">
+              <label
+                tabIndex={0}
+                className="btn w-full rounded-r-none px-1 text-2xl "
+              >
                 🚀
               </label>
               <div
@@ -130,9 +132,8 @@ function App() {
               <input
                 type="text"
                 placeholder="Bullet"
-                // rows={Math.max(newInputVal.length / predictedChars, 1)}
-                className="flex h-fit min-h-[1vh] w-full max-w-full flex-grow items-center bg-slate-800 px-2 text-left text-xl text-white focus:outline-none"
-                // sm:text-[3vw]
+                className="flex h-fit min-h-[1vh] w-full max-w-full flex-grow items-center bg-slate-800 px-2 text-left text-base text-white focus:outline-none"
+                autoComplete="off"
                 id="newBulletInput"
                 ref={formInputRef}
                 value={newInputVal}
@@ -144,11 +145,11 @@ function App() {
               ></input>
             </div>
             <button
-              className="btn textarea col-span-1
-              min-h-fit w-auto  border-none bg-slate-800 outline-none focus:bg-slate-800"
+              className="btn textarea col-span-1 min-h-fit
+               w-full rounded-l-none border-none bg-slate-800 p-[0.1rem] outline-none focus:bg-slate-800 focus:outline-none"
               onClick={onNewBulletSubmit}
             >
-              <Send className="aspect-square h-full w-auto fill-slate-500 px-1 " />
+              <Send className="aspect-square h-auto w-full fill-slate-500 px-1" />
             </button>
           </div>
         </div>
