@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import Send from "./send";
 import "./App.css";
 import Bullet from "./components/Bullet";
-import React from "react";
 import { BulletProps } from "./types/bullet.types";
+import { EmojiPicker, EmojiObject, unifiedToNative } from "react-twemoji-picker";
+import EmojiData from "react-twemoji-picker/data/twemoji.json";
+import "react-twemoji-picker/dist/EmojiPicker.css";
 
 function App() {
   const [bullets, setBullets] = useState<BulletProps[]>([
@@ -19,6 +21,8 @@ function App() {
     },
   ]);
 
+  const emojiData = Object.freeze(EmojiData);
+
   /*
   width to # characters before input wrap
   360 : 27, wrap on 28
@@ -26,7 +30,8 @@ function App() {
   540: 45, wrap on 46
   */
   const [newInputVal, setNewInputval] = useState("");
-  const [inputRows, setInputRows] = useState(1);
+  const [currentEmoji, setCurrentEmoji] = useState("🚀");
+  // const [inputRows, setInputRows] = useState(1);
 
   const formInputRef = useRef<HTMLInputElement>(null);
 
@@ -34,7 +39,7 @@ function App() {
     if (newInputVal) {
       const newBullet = {
         id: Math.floor(Math.random() * 4096),
-        icon: "🍪",
+        icon: currentEmoji,
         text: newInputVal,
       };
       setBullets([...bullets, newBullet]);
@@ -66,10 +71,7 @@ function App() {
         ) : (
           <></>
         )}
-        {/* <h1>{window.innerWidth}</h1>
-        <h1>input font size: {inputFontSize}</h1>
-        <h1>input width: {inputWidth}</h1>
-        <h1>predicted characters {predictedChars}</h1> */}
+        {/* <EmojiPicker /> */}
 
         <div className="fixed bottom-4 z-10 grid w-full justify-items-center">
           <div className="grid h-fit w-[95%] grid-cols-[2rem,12fr,2rem] justify-start rounded-2xl bg-slate-800 xl:max-w-[50%]">
@@ -78,18 +80,22 @@ function App() {
                 tabIndex={0}
                 className="btn w-full rounded-r-none px-1 text-2xl "
               >
-                🚀
+                {currentEmoji}
               </label>
               <div
                 tabIndex={0}
-                className="card dropdown-content card-compact mb-2 w-64 bg-sky-900  text-primary-content"
+                className="card dropdown-content card-compact mb-2  bg-sky-900  text-primary-content "
                 onClick={() => {
                   document.getElementById("newBulletInput")?.focus();
                 }}
               >
-                <div className="card-body ">
-                  <img src="https://static.wikia.nocookie.net/pokemon/images/a/ae/Professor_Cerise_Yamper.png/"></img>
-                </div>
+                {/* <div className="card-body "> */}
+                {/* <img src="https://static.wikia.nocookie.net/pokemon/images/a/ae/Professor_Cerise_Yamper.png/"></img> */}
+                {/* </div> */}
+                <EmojiPicker emojiData={emojiData} theme="dark" onEmojiSelect={(emoji) => {
+                  console.log(emoji);
+                  setCurrentEmoji(unifiedToNative(emoji.unicode));
+                }} />
               </div>
             </div>
             <div className="col-span-1 flex w-full items-center">
