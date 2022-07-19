@@ -4,10 +4,9 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        'xsm': '400px',
-      }
+        xsm: "400px",
+      },
     },
-    
   },
   daisyui: {
     themes: false,
