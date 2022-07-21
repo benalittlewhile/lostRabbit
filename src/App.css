@@ -2,3 +2,9 @@
   text-align: center;
   font-family: "Cousine", monospace;
 }
+
+img.emoji {
+  height: 1em;
+  width: 1em;
+  margin: 0 auto;
+}
