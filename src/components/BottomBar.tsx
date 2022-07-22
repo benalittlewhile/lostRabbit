@@ -74,6 +74,7 @@ export default function (props: BottomBarProps) {
           className="btn textarea col-span-1 min-h-fit
                w-full rounded-l-none border-none bg-slate-800 p-[0.1rem] outline-none focus:bg-slate-800 focus:outline-none"
           onClick={submit}
+          aria-label="Send Bullet"
         >
           <Send className="aspect-square h-auto w-full fill-slate-500 px-1" />
         </button>
