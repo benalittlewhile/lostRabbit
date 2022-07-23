@@ -10,3 +10,10 @@ export interface BottomBarProps {
   emojiData: Record<string, EmojiObject[]>;
   onNewBulletSubmit: (bullet: BulletProps) => void;
 }
+
+export interface BulletGroup {
+  id: number;
+  title: string;
+  bullets: BulletProps[];
+  // icon: string
+}

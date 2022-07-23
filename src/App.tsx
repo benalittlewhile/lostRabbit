@@ -30,13 +30,15 @@ function App() {
 
   /*
   TODO goes up here bcause reasons
-  - Change number of emoji in row to be smaller on smaller phones
   - Make the input resize itself correctly because grrrr
-  - Make it a pwa
+  - Make it a pwa (done!)
+  -- Make it... idk, cache better? I can probably optimize this a little better
+  depending on how I choose to deploy it
   - context menu on click the bullet to allow for deleting
   -- add categories (tabs)
+  -- // could see about adding these as a tab bar that shows up at the top
   --- make the localstorage work with the categories
-  ---- lazy load only the current category
+  ---- lazy load (from local, but maybe server later??) only the current category
   -- allow adding bullets to front or back of list
   -- allow sorting descending or ascending
   -- add real uuid for bullets
@@ -44,6 +46,7 @@ function App() {
   -- test bar color changing
   -- investigate animations
   -- themes and theme picker (there has to be a tailwind plugin for this)
+  --- Change number of emoji in row to be smaller on smaller phones
   */
 
   /*

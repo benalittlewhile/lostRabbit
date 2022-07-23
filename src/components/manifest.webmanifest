@@ -1,0 +1,52 @@
+{
+  "WARNING": "this is not the actual manifest, the real one is generated in the vite pwa plugin and configured in vite.config.ts. I keep this one around for reference.",
+
+
+
+
+
+  "theme_color": "#64748b",
+  "background_color": "#64748b",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "lostRabbit",
+  "short_name": "lostRabbit",
+  "description": "A tiny journal app for quick notes",
+  "icons": [
+    {
+      "src": "manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "manifest-icon-192.maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "manifest-icon-512.maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    }
+  ]
+}
