@@ -1,7 +1,7 @@
 <h1>LostRabbit</h1>
 
 <p align="center">
-<img src="repo/lostRabbitHeader.jpeg" width="75%" align="center">
+<img src="repo/lostRabbitHeader.jpeg" width="30%" align="center">
 </p>
 
 ## Demo
