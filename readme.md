@@ -1,4 +1,4 @@
-<h1>LostRabbit</h1>
+<h1>LostRabbit - a web app for quick notes</h1>
 
 <p align="center">
 <img src="repo/lostRabbitHeader.jpeg" width="30%" align="center">
