@@ -1,7 +1,8 @@
-<style>h1,h2,h3,h4 { border-bottom: 0; } </style>
 <h1>LostRabbit</h1>
 
+<p align="center">
 <img src="repo/lostRabbitHeader.jpeg" width="75%" align="center">
+</p>
 
 ## Demo
 
