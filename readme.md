@@ -12,10 +12,9 @@ using the "add to home screen" (or equivalent) option provided by your browser.
 
 ## Description
 
-LostRabbit (I'll find a real title at some point it's fine don't worry about it)
-is a tiny journaling/notes app designed to be as fast and minimal as possible
-but still nice to use. It envisions notes as "bullets", a pairing of an emoji
-and some text content. It was inspired by the
+LostRabbit (real name coming soon) is a tiny journaling/notes app designed to be
+as fast and minimal as possible but still nice to use. It envisions notes as
+"bullets", a pairing of an emoji and some text content. It was inspired by the
 <a href="https://bulletjournal.com/">bullet journal </a> note taking system.
 
 A note on privacy: LostRabbit is very simple. All notes are saved to the
