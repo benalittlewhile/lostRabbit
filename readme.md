@@ -53,3 +53,5 @@ which will build the project in the `dist` folder.
 - [Vercel](https://vercel.com)
 - [Daisyui](https://daisyui.com)
 - [react-twemoji](https://github.com/ZxMYS/react-twemoji) by [ZxMYS](https://github.com/ZxMYS)
+- [react-twemoji-picker](https://github.com/BrianHung/EmojiPicker) by [Brian
+  Hung](https://github.com/BrianHung)
